@@ -1,6 +1,7 @@
 package com.nextconsulting;
 
 import com.nextconsulting.model.Agendamento;
+import com.nextconsulting.model.StatusAgendamento;
 import com.nextconsulting.repository.AgendamentoRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +22,7 @@ public class NextconsultingApplication {
 
 			agendamento.setData("2026-03-26");
 			agendamento.setHorario("10:00");
-			agendamento.setStatus("PENDENTE");
+			agendamento.setStatus(StatusAgendamento.PENDENTE);
 
 			repository.save(agendamento);
 		};

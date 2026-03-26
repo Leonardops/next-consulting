@@ -28,11 +28,11 @@ public class Agendamento {
         this.horario = horario;
     }
 
-    public String getStatus() {
+    public StatusAgendamento getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusAgendamento status) {
         this.status = status;
     }
 
@@ -50,8 +50,10 @@ public class Agendamento {
 
     private String data;
     private String horario;
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private StatusAgendamento status;
 
     @ManyToOne
     private Usuario usuario;
 }
+

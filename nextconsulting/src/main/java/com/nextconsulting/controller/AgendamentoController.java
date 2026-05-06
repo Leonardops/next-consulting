@@ -1,8 +1,9 @@
-package com.nextconsulting.contorller;
+package com.nextconsulting.controller;
 
 import com.nextconsulting.model.Agendamento;
 import com.nextconsulting.repository.AgendamentoRepository;
 import org.springframework.web.bind.annotation.*;
+import com.nextconsulting.service.AgendamentoService;
 
 import java.util.List;
 
@@ -10,19 +11,19 @@ import java.util.List;
 @RequestMapping("/agendamentos")
 public class AgendamentoController {
 
-    private final AgendamentoRepository repository;
+    private final AgendamentoService service;
 
-    public AgendamentoController(AgendamentoRepository repository) {
-        this.repository = repository;
-    }
+    public AgendamentoController(AgendamentoService service) {
+        this.service = service;}
+
 
     @GetMapping
     public List<Agendamento> listar() {
-        return repository.findAll();
+        return service.listarTodos();
     }
 
     @PostMapping
     public Agendamento criar(@RequestBody Agendamento agendamento) {
-        return repository.save(agendamento);
+            return service.salvar(agendamento);
     }
 }

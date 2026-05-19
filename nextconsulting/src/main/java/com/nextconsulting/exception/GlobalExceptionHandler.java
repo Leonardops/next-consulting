@@ -1,6 +1,6 @@
-package com.nextconsulting.handler;
+package com.nextconsulting.exception;
 
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -8,10 +8,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> tratarErro(IllegalArgumentException ex) {
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<String> tratarRuntimeException(RuntimeException ex){
+
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .badRequest()
                 .body(ex.getMessage());
     }
 }

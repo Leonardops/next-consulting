@@ -30,6 +30,18 @@ public class AgendamentoService {
         Agendamento agendamento = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Agendamento não encontrado"));
 
+        if (agendamento.getStatus() == novoStatus) {
+            throw new RuntimeException("O agendamento já possui esse  status");
+        }
+
+        if (agendamento.getStatus() == StatusAgendamento.APROVADO) {
+            throw new RuntimeException("Um agendamento aprovado não pode ser alterado");
+        }
+
+        if (agendamento.getStatus() == StatusAgendamento.REJEITADO) {
+            throw new RuntimeException("Um agendamento rejeitado não pode ser alterado");
+        }
+
         agendamento.setStatus(novoStatus);
 
         return repository.save(agendamento);

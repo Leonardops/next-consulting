@@ -2,6 +2,7 @@ package com.nextconsulting.controller;
 
 import com.nextconsulting.model.Agendamento;
 import com.nextconsulting.repository.AgendamentoRepository;
+import com.nextconsulting.model.StatusAgendamento;
 import org.springframework.web.bind.annotation.*;
 import com.nextconsulting.service.AgendamentoService;
 
@@ -25,5 +26,11 @@ public class AgendamentoController {
     @PostMapping
     public Agendamento criar(@RequestBody Agendamento agendamento) {
             return service.salvar(agendamento);
+    }
+
+    @PutMapping("/{id}/status")
+    public Agendamento atualizarStatus(@PathVariable Long id,
+                                       @RequestParam StatusAgendamento status){
+        return service.atualizarStatus(id, status);
     }
 }

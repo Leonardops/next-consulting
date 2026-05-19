@@ -1,6 +1,7 @@
 package com.nextconsulting.service;
 
 import com.nextconsulting.model.Agendamento;
+import com.nextconsulting.model.StatusAgendamento;
 import com.nextconsulting.repository.AgendamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,14 @@ public class AgendamentoService {
 
     public List<Agendamento> listarTodos() {
         return repository.findAll();
+    }
+
+    public Agendamento atualizarStatus(Long id, StatusAgendamento novoStatus) {
+        Agendamento agendamento = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Agendamento não encontrado"));
+
+        agendamento.setStatus(novoStatus);
+
+        return repository.save(agendamento);
     }
 }

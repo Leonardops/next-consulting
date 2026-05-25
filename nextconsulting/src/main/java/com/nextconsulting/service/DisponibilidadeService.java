@@ -16,6 +16,17 @@ public class DisponibilidadeService {
     }
 
     public Disponibilidade salvar(Disponibilidade disponibilidade) {
+
+        boolean horarioExiste =
+                disponibilidadeRepository.existsByDataAndHorario(
+                        disponibilidade.getData(),
+                        disponibilidade.getHorario()
+                );
+
+        if (horarioExiste){
+            throw new RuntimeException("Horário indisponível.");
+        }
+
         return disponibilidadeRepository.save(disponibilidade);
     }
 

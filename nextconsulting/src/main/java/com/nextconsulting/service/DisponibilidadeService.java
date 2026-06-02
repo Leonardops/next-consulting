@@ -27,6 +27,8 @@ public class DisponibilidadeService {
             throw new RuntimeException("Horário indisponível.");
         }
 
+        disponibilidade.setDisponivel(true);
+
         return disponibilidadeRepository.save(disponibilidade);
     }
 

@@ -3,6 +3,7 @@ package com.nextconsulting.service;
 import com.nextconsulting.model.Agendamento;
 import com.nextconsulting.model.StatusAgendamento;
 import com.nextconsulting.repository.AgendamentoRepository;
+import com.nextconsulting.repository.DisponibilidadeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +12,30 @@ import java.util.List;
 @Service
 public class AgendamentoService {
 
-    @Autowired
-    private AgendamentoRepository repository;
+    private final AgendamentoRepository repository;
+
+    public AgendamentoService(AgendamentoRepository repository, DisponibilidadeRepository disponibilidadeRepository) {
+        this.repository = repository;
+        this.disponibilidadeRepository = disponibilidadeRepository;
+    }
+
+    private final DisponibilidadeRepository disponibilidadeRepository;
+
 
     public Agendamento salvar(Agendamento agendamento) {
+
+        boolean disponibilidadeExiste =
+                disponibilidadeRepository.existsByDataAndHorario(
+                        agendamento.getData(),
+                        agendamento.getHorario()
+                );
+
+        if (!disponibilidadeExiste) {
+            throw new IllegalArgumentException(
+                    "Horário não disponível para agendamento."
+            );
+        }
+
         if (repository.existeAgendamento(agendamento.getData(), agendamento.getHorario())) {
             throw new IllegalArgumentException("Já existe um agendamento para essa data e horário!");
         }
